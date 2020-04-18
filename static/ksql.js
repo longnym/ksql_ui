@@ -31,7 +31,9 @@ function displayServerVersion() {
         if (this.readyState == 4 && this.status == 200) {
             var serverVersionResponse = JSON.parse(this.responseText);
             document.getElementById("copyright").innerHTML = "KSQL 서버 v" + serverVersionResponse.KsqlServerInfo.version
-        }
+        } else {
+			document.getElementById("copyright").innerHTML = "KSQL 서버에 연결되어 있지 않습니다."
+		}
     };
     xhr.open("GET", ksqlServer + "/info", true);
     xhr.send();
