@@ -60,12 +60,11 @@ function sendRequest(resource, sqlExpression) {
     'streamsProperties': properties
   });
 
-  console.log("Sending:" + data)
-
   document.getElementById('cancel_request').hidden = false;
   document.getElementById('request_loading').hidden = false;
   xhr.open('POST', ksqlServer + resource);
-  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Accept', 'application/vnd.ksql.v1+json');
+  xhr.setRequestHeader('Content-Type', 'application/vnd.ksql.v1+json');
   xhr.send(data);
 }
 
