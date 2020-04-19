@@ -63,7 +63,6 @@ function sendRequest(resource, sqlExpression) {
   document.getElementById('cancel_request').hidden = false;
   document.getElementById('request_loading').hidden = false;
   xhr.open('POST', ksqlServer + resource);
-  xhr.setRequestHeader('Accept', 'application/vnd.ksql.v1+json');
   xhr.setRequestHeader('Content-Type', 'application/vnd.ksql.v1+json');
   xhr.send(data);
 }
@@ -190,7 +189,6 @@ function getAutoColsAndRows(object) {
 }
 
 function renderTabularStatement(statementResponse) {
-  console.log(statementResponse);
   var autoColAndRows;
   var columnHeaders, rowValues;
 
