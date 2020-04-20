@@ -157,7 +157,7 @@ span.property {
   margin: 5px;
   position: absolute;
   width: 98%;
-  height: calc(100% - 470px);
+  height: calc(100% - 472px);
   overflow-y: auto;
   border: 1px solid black;
 }
