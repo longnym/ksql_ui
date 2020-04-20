@@ -40,6 +40,10 @@ function displayServerVersion() {
 }
 
 function sendRequest(resource, sqlExpression) {
+  if (resource == '/ksql') {  // run command by button
+    streamedResponse = false;
+  }
+
   xhr.abort();
 
   var properties = getProperties();
@@ -76,6 +80,7 @@ function cancelRequest() {
 
 function renderResponse() {
   var renderedBody = '';
+  var count = 1;
   if (streamedResponse) {
     // Used to try to report JSON parsing errors to the user, but
     // since printed topics don't have a consistent format, just
@@ -92,8 +97,10 @@ function renderResponse() {
           renderedBody += line;
         }
         renderedBody += '\n';
+        count = count + 1;
       }
     }
+    count = count + 1;
   } else {
     try {
       var parsedJson = JSON.parse(rawResponseBody);
@@ -112,7 +119,7 @@ function renderResponse() {
     }
   }
   response.setValue(renderedBody);
-  response.gotoLine((renderedBody.match(/\n/g) || '').length + 1);
+  response.gotoLine(count);
 }
 
 function renderTabular(parsedBody) {
