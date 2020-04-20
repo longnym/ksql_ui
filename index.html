@@ -27,7 +27,7 @@
     <div id="editor"></div>
     <button id="run-button" onclick="runCommand()">실행</button>
     <span class="loading" id="request_loading" hidden>실시간 처리 중...</span>
-    <button hidden id="cancel_request" onclick="xhr.abort();">취소</button>
+    <button hidden id="cancel_request" onclick="cancelRequest()">취소</button>
   </div>
   <div id="properties-div">
     쿼리 속성:
@@ -51,7 +51,7 @@
     <button class="command-button" onclick="editor.setValue('CREATE TABLE events_per_min AS SELECT userid, COUNT(*) AS events FROM ksql_stream WINDOW TUMBLING (SIZE 10 SECONDS) GROUP BY userid;')">
       CREATE TABLE [...]
     </button>
-    <button class="command-button" onclick="editor.setValue('SELECT * from MyStream_OR_Table WHERE ;')">SELECT * FROM [..]</button>
+    <button class="command-button" onclick="editor.setValue('SELECT * FROM MyStream_OR_Table WHERE ;')">SELECT * FROM [..]</button>
     <button class="command-button" onclick="editor.setValue('PRINT \'topic\' FROM BEGINNING;')">PRINT my_topic [..]</button>
     <button class="command-button" onclick="editor.setValue('DESCRIBE EXTENDED MyStream_OR_Table;')">DESCRIBE EXTENDED [..]</button>
     <button class="command-button" onclick="editor.setValue('EXPLAIN MyQueryId;')">EXPLAIN MyQueryId [..]</button>

@@ -222,8 +222,6 @@ function renderTabularStatement(statementResponse) {
     rowValues = [
       [innerBody.property, innerBody.oldValue, innerBody.newValue]
     ];
-  } else if (statementResponse.error) {
-    return renderPrettyJson(statementResponse)
   } else {
     throw SyntaxError;
   }
@@ -236,7 +234,6 @@ function renderTabularStatement(statementResponse) {
 
 function renderTable(columnHeaders, rowValues) {
   var lengths = [];
-  var cols = [];
 
   columnHeaders.forEach(function (item) {
     lengths.push(item.length);
