@@ -63,7 +63,7 @@ function sendRequest(resource, sqlExpression) {
   document.getElementById('cancel_request').hidden = false;
   document.getElementById('request_loading').hidden = false;
   xhr.open('POST', ksqlServer + resource);
-  xhr.setRequestHeader('Content-Type', 'application/vnd.ksql.v1+json');
+  xhr.setRequestHeader('Content-Type', 'application/vnd.ksql.v1+json; charset=utf-8');
   xhr.send(data);
 }
 
@@ -138,7 +138,7 @@ function renderTabular(parsedBody) {
         if (columns[i] == null) {
           columns[i] = 'null';
         }
-        result.push(columns[i].toString());
+        result.push(columns[i].toString().replace(/\n/gi, '\\n'));
       }
       return ' ' + result.join(' | ') + ' ';
     } else if (parsedBody.header) {
@@ -309,6 +309,11 @@ function isPrimitive(test) {
 };
 
 function addNewProperty() {
+  var propertiesElement = document.getElementById('properties');
+  if (propertiesElement.childElementCount == 5) {
+    return;
+  }
+
   var key = document.createElement('input');
   key.type = 'text';
   key.placeholder = '키';
@@ -338,7 +343,6 @@ function addNewProperty() {
 
   propertyDiv.appendChild(propertySpan);
 
-  var propertiesElement = document.getElementById('properties');
   propertiesElement.appendChild(propertyDiv);
 
   deleteButton.onclick = function () {
