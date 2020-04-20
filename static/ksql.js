@@ -112,7 +112,7 @@ function renderResponse() {
     }
   }
   response.setValue(renderedBody);
-  response.gotoLine(1);
+  response.gotoLine((renderedBody.match(/\n/g) || '').length + 1);
 }
 
 function renderTabular(parsedBody) {
