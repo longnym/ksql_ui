@@ -135,9 +135,16 @@ function renderTabular(parsedBody) {
       var columns = parsedBody.row.columns;
       for (var i = 0; i < columns.length; i++) {
         // TODO: Figure out how to handle arrays/maps here...
+        if (columns[i] == null) {
+          columns[i] = 'null';
+        }
         result.push(columns[i].toString());
       }
       return ' ' + result.join(' | ') + ' ';
+    } else if (parsedBody.header) {
+      var res = parsedBody.header.schema.replace(/,/gi, ' |');
+      res += '\n' + Array(res.length + 1).join('-');
+      return res;
     } else {
       throw SyntaxError;
     }
@@ -203,8 +210,6 @@ function renderTabularStatement(statementResponse) {
     autoColAndRows = getAutoColsAndRows(statementResponse.tables)
   } else if (statementResponse['@type'] == 'queries') {
     autoColAndRows = getAutoColsAndRows(statementResponse.queries)
-  } else if (statementResponse.error) {
-    return renderPrettyJson(statementResponse)
   } else if (statementResponse['@type'] == 'sourceDescription') {
     return renderPrettyJson(statementResponse)
   } else if (statementResponse['@type'] == 'queryDescription') {
@@ -217,6 +222,8 @@ function renderTabularStatement(statementResponse) {
     rowValues = [
       [innerBody.property, innerBody.oldValue, innerBody.newValue]
     ];
+  } else if (statementResponse.error) {
+    return renderPrettyJson(statementResponse)
   } else {
     throw SyntaxError;
   }
