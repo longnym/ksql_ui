@@ -4,6 +4,7 @@ var xhr = new XMLHttpRequest();
 
 var renderFunction = renderTabular;
 var streamedResponse = false;
+var sqlExpressionPrev = '';
 
 String.prototype.replaceAll = function (search, replacement) {
   var target = this;
@@ -40,6 +41,7 @@ function displayServerVersion() {
 }
 
 function sendRequest(resource, sqlExpression) {
+  sqlExpressionPrev = sqlExpression;
   if (resource == '/ksql') {  // run command by button
     streamedResponse = false;
   }
@@ -92,12 +94,17 @@ function renderResponse() {
       if (line !== '') {
         try {
           var parsedJson = JSON.parse(line);
-          renderedBody += renderFunction(parsedJson);
+          var renderResult = renderFunction(parsedJson);
+          renderedBody += renderResult;
+          count = count + (renderResult.match(/\n/g) || '').length + 1;
         } catch (SyntaxError) {
           renderedBody += line;
+          count = count + 1;
         }
         renderedBody += '\n';
-        count = count + 1;
+      }
+      if (count > 1000) {
+        break;
       }
     }
     count = count + 1;
@@ -120,6 +127,16 @@ function renderResponse() {
   }
   response.setValue(renderedBody);
   response.gotoLine(count);
+
+  if (count > 1000 && streamedResponse) {
+    cancelRequest();
+    if (sqlExpressionPrev.indexOf('PRINT') == 0 && sqlExpressionPrev.indexOf('FROM BEGINNING') != -1) {
+      response.setValue(renderedBody + '\n' + 'This query can only show 1000 lines.');
+      response.gotoLine(count + 1);
+    } else {
+      sendRequest("/query", sqlExpressionPrev);
+    }
+  }
 }
 
 function renderTabular(parsedBody) {
