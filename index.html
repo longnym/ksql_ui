@@ -43,6 +43,7 @@
     <button class="command-button" onclick="sendRequest('/ksql', 'show streams;')">SHOW STREAMS</button>
     <button class="command-button" onclick="sendRequest('/ksql', 'show tables;')">SHOW TABLES</button>
     <button class="command-button" onclick="sendRequest('/ksql', 'show queries;')">SHOW QUERIES</button>
+    <button class="command-button" onclick="sendRequest('/ksql', 'show functions;')">SHOW FUNCTIONS</button>
     <button class="command-button"
             onclick="editor.setValue('CREATE STREAM MyStream (_time bigint, id varchar, name varchar, request varchar, status int) WITH (kafka_topic = \'kafka_topic\', value_format = \'json\');')">
       CREATE STREAM [..]

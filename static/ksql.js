@@ -244,6 +244,8 @@ function renderTabularStatement(statementResponse) {
     autoColAndRows = getAutoColsAndRows(statementResponse.tables)
   } else if (statementResponse['@type'] == 'queries') {
     autoColAndRows = getAutoColsAndRows(statementResponse.queries)
+  } else if (statementResponse['@type'] == 'function_names') {
+    autoColAndRows = getAutoColsAndRows(statementResponse.functions)
   } else if (statementResponse['@type'] == 'sourceDescription') {
     return renderPrettyJson(statementResponse)
   } else if (statementResponse['@type'] == 'queryDescription') {
