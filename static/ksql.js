@@ -128,7 +128,7 @@ function renderResponse() {
   response.setValue(renderedBody);
   response.gotoLine(count);
 
-  if (count > 1000 && streamedResponse && xhr.status != 0) {
+  if (count > 1000 && streamedResponse && xhr.status == 200) {
     cancelRequest();
     if (sqlExpressionPrev.indexOf('PRINT') == 0 && sqlExpressionPrev.indexOf('FROM BEGINNING') != -1) {
       response.setValue(renderedBody + '\n' + 'This query can only show 1000 lines.');
