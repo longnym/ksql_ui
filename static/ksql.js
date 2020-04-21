@@ -1,9 +1,10 @@
 var ksqlServer = 'http://localhost:8088';
-var rawResponseBody = '';
+
 var xhr = new XMLHttpRequest();
 
 var renderFunction = renderTabular;
 var streamedResponse = false;
+var rawResponseBody = '';
 var sqlExpressionPrev = '';
 
 String.prototype.replaceAll = function (search, replacement) {
@@ -27,7 +28,6 @@ function runCommand() {
 }
 
 function displayServerVersion() {
-  var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var serverVersionResponse = JSON.parse(this.responseText);
