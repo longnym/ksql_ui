@@ -1,4 +1,4 @@
-var ksqlServer = 'http://localhost:8088';
+var ksqlServer = 'http://52.79.47.1:8188';
 
 var xhr = new XMLHttpRequest();
 
@@ -62,7 +62,7 @@ function sendRequest(resource, sqlExpression) {
       if (sqlExpressionPrev.indexOf('PRINT') == 0 && sqlExpressionPrev.indexOf('FROM BEGINNING') != -1) {
         fromBeginning = true;
       }
-      rawResponseBody = xhr.response;
+      rawResponseBody = xhr.response.trim();
       renderResponse();
     }
     if (xhr.readyState === 4 || xhr.readyState === 0) {
@@ -103,6 +103,14 @@ function renderResponse() {
       var line = splitBody[i].trim();
       if (line !== '') {
         try {
+          // response format for ksqlDB (2020.10.10)
+          if (line.substring(0, 1) === '[') {
+            line = line.substring(1, line.length);
+          }
+          if (line.substring(line.length - 1) === ',') {
+            line = line.substring(0, line.length - 1);
+          }
+
           var parsedJson = JSON.parse(line);
           var renderResult = renderFunction(parsedJson);
           renderedBody += renderResult;
@@ -191,10 +199,10 @@ function getObjectProperties(object) {
   var rowValues = [];
 
   for (var property in object) {
-    if (object[property] == null) {
-      object[property] = "null";
+    if (object[property].value == null) {
+      object[property].value = "";
     }
-    rowValues.push([property, object[property].toString()]);
+    rowValues.push([object[property].name, object[property].value]);
   }
   return rowValues;
 }

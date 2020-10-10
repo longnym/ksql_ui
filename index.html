@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>KSQL 브라우저</title>
+  <title>ksqlDB 브라우저</title>
   <script src="/static/ksql.js"></script>
   <script src="/static/ace.js"></script>
 
@@ -15,7 +15,7 @@
 <div id="ksql-header" style="width:100%">
   <div id="logo"><img src="/static/logo.png"></div>
   <div style="width:70%; float:left;">
-    <h1 id="title">KSQL 브라우저</h1>
+    <h1 id="title">ksqlDB 브라우저</h1>
   </div>
   <div style="width:20%; float:right;">
     <h4 id="copyright" style="text-align: right;" class="hint"></h4>
@@ -59,10 +59,10 @@
     <button class="command-button" onclick="editor.setValue('DESCRIBE EXTENDED MyStream_OR_MyTable;')">DESCRIBE EXTENDED [..]</button>
     <button class="command-button" onclick="editor.setValue('EXPLAIN MyQueryId;')">EXPLAIN [..]</button>
 
-    <a class="link" href="https://docs.confluent.io/current/ksql/docs/developer-guide/syntax-reference.html" target="_blank">
+    <a class="link" href="https://docs.ksqldb.io/en/latest/developer-guide/syntax-reference/" target="_blank">
       Syntax 가이드
     </a>
-    <a class="link" href="https://docs.confluent.io/current/ksql/docs/tutorials/examples.html" target="_blank">
+    <a class="link" href="https://docs.ksqldb.io/en/latest/tutorials/examples/" target="_blank">
       사용 예제
     </a>
   </div>
