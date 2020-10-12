@@ -350,9 +350,13 @@ function upperCaseFirst(string) {
 
 function isPrimitive(test) {
   return (test !== Object(test));
-};
+}
 
-function addNewProperty() {
+function initProperty() {
+  addNewProperty('auto.offset.reset', 'latest');
+}
+
+function addNewProperty(propKey, propValue) {
   var propertiesElement = document.getElementById('properties');
   if (propertiesElement.childElementCount == 5) {
     return;
@@ -367,6 +371,13 @@ function addNewProperty() {
   value.type = 'text';
   value.placeholder = '값';
   value.classList.add('property-value');
+
+  if (propKey !== '') {
+    key.value = propKey;
+  }
+  if (propValue !== '') {
+    value.value = propValue;
+  }
 
   var deleteButton = document.createElement('button');
   deleteButton.appendChild(document.createTextNode('X'));
@@ -427,4 +438,4 @@ function getProperties() {
   return properties;
 }
 
-window.onload = addNewProperty;
+window.onload = initProperty;
