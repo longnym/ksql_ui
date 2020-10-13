@@ -17,7 +17,7 @@ function runCommand() {
   var sqlExpression = editor.getValue();
   var upperSqlExpression = sqlExpression.toUpperCase();
   var sqlExpression = editor.getValue();
-  if (upperSqlExpression.startsWith("SELECT ") || upperSqlExpression.startsWith("PRINT ")) {
+  if (upperSqlExpression.startsWith("SELECT") || upperSqlExpression.startsWith("PRINT")) {
     streamedResponse = true;
     // execute KSQL interactive streaming query
     sendRequest("/query", sqlExpression)
